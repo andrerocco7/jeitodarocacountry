@@ -7,15 +7,14 @@ import Pusher from "pusher";
 
 export async function POST(req) {
   const pusher = new Pusher({
-    appId: "1889693",
-    key: "92ce80a4f49372f48d51",
-    secret: "fe87ca04b5d9fe9cab07",
-    cluster: "us2",
+    appId: process.env.PUSHER_APP_ID,
+    key: process.env.PUSHER_KEY,
+    secret: process.env.PUSHER_SECRET,
+    cluster: process.env.PUSHER_CLUSTER,
     useTLS: true,
   });
 
-  const secret =
-    "efd2bdde39ec6ccd9cec723082d3d19e4857b6e0ef92696f1a1a6dc65cbd6a79";
+  const secret = `${process.env.WEBHOOK_SECRET}`;
 
   try {
     const signatureHeader = req.headers.get("x-signature");
@@ -65,7 +64,7 @@ export async function POST(req) {
         `https://api.mercadopago.com/v1/payments/${paymentId}`,
         {
           headers: {
-            Authorization: `Bearer APP_USR-3758424019225992-040322-918b6e811465f67f5255863b5b32e6cd-1164572593`,
+            Authorization: `Bearer ${process.env.MERCADO_PAGO_ACCESS_TOKEN}`,
           },
         }
       );
@@ -140,15 +139,15 @@ export async function POST(req) {
         const shippingData = {
           service: deliveryAddress.serviceId,
           from: {
-            name: "Imuno Pump",
-            postal_code: "80420080",
-            document: "06223391501",
-            phone: "79999847482",
-            address: "Rua Emiliano Perneta",
-            complement: "805",
-            number: "659",
-            city: "Curitiba",
-            state_abbr: "PR",
+            name: process.env.FROM_NAME,
+            postal_code: process.env.FROM_POSTAL_CODE,
+            document: process.env.FROM_DOCUMENT,
+            phone: process.env.FROM_PHONE,
+            address: process.env.FROM_ADDRESS,
+            complement: process.env.FROM_COMPLEMENT,
+            number: process.env.FROM_NUMBER,
+            city: process.env.FROM_CITY,
+            state_abbr: process.env.FROM_STATE_ABBR,
           },
           to: {
             name: deliveryAddress.name,
@@ -189,7 +188,7 @@ export async function POST(req) {
         };
 
         const shippingResponse = await fetch(
-          "https://e991-2804-d55-403a-3100-886c-c16a-fe4a-46d3.ngrok-free.app/api/createShipping",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/createShipping`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -200,7 +199,7 @@ export async function POST(req) {
         const shippingResult = await shippingResponse.json();
 
         if (!shippingResponse.ok) {
-          throw new Error(shippingResult.error || "Erro ao criar frete");
+          // throw new Error(shippingResult.error || "Erro ao criar frete");
         }
 
         console.log(`Triggering Pusher event for payment ID: ${paymentId}`);

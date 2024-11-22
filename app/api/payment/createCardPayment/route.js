@@ -3,7 +3,6 @@ import { PaymentMethod, PaymentStatus } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  console.log("Recebendo requisição de pagamento...");
   try {
     const {
       token,
@@ -41,7 +40,7 @@ export async function POST(req) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer TEST-3758424019225992-040322-010d86f865bf1f9635ef37103c630a7b-1164572593`,
+        Authorization: `Bearer ${process.env.MERCADO_PAGO_ACCESS_TOKEN}`,
         "X-Idempotency-Key": crypto.randomUUID(),
       },
       body: JSON.stringify({
@@ -54,11 +53,7 @@ export async function POST(req) {
       }),
     });
 
-    console.log("Resposta da API do Mercado Pago recebida.");
-
     const result = await response.json();
-
-    console.log("Resultado da chamada ao Mercado Pago:", result);
 
     if (!response.ok) {
       console.error("Erro na resposta do Mercado Pago:", result);
@@ -67,11 +62,7 @@ export async function POST(req) {
 
     const { id, status } = result;
 
-    console.log("Status do pagamento:", status);
-
     if (status === "approved") {
-      console.log("Pagamento aprovado. Criando registro no banco de dados...");
-
       const dbPayment = await createPayment({
         userId,
         amount: transaction_amount,
@@ -80,8 +71,6 @@ export async function POST(req) {
         status: PaymentStatus.APPROVED,
         couponCode: couponCode || undefined,
       });
-
-      console.log("Pagamento registrado no banco de dados:", dbPayment);
 
       for (const product of products) {
         console.log("Processando produto:", product);
@@ -95,8 +84,6 @@ export async function POST(req) {
           },
         });
 
-        console.log(`Produto ${product.productId} registrado no pagamento.`);
-
         await prisma.product.update({
           where: { id: product.productId },
           data: {
@@ -105,13 +92,7 @@ export async function POST(req) {
             },
           },
         });
-
-        console.log(
-          `Estoque do produto ${product.productId} atualizado no banco de dados.`
-        );
       }
-
-      console.log("Registrando endereço de entrega...");
 
       await prisma.paymentDeliveryAddress.create({
         data: {
@@ -130,12 +111,8 @@ export async function POST(req) {
         },
       });
 
-      console.log("Endereço de entrega registrado com sucesso.");
-
-      console.log("Criando frete...");
-
       const shippingResponse = await fetch(
-        "http://localhost:3000/api/createShipping",
+        `${process.env.NEXT_PUBLIC_APP_URL}/api/createShipping`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -149,7 +126,7 @@ export async function POST(req) {
 
       if (!shippingResponse.ok) {
         console.error("Erro ao criar frete:", shippingResult);
-        throw new Error(shippingResult.error || "Erro ao criar frete");
+        // throw new Error(shippingResult.error || "Erro ao criar frete");
       }
 
       console.log("Frete criado com sucesso.");
@@ -157,7 +134,6 @@ export async function POST(req) {
       return NextResponse.json({ ...result, shipping: shippingResult });
     }
 
-    console.warn("Pagamento não aprovado:", result);
     return NextResponse.json(result);
   } catch (error) {
     console.error("Erro ao processar pagamento:", error);
