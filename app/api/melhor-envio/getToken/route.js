@@ -13,13 +13,13 @@ export async function POST(request) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "User-Agent": "Teste ddiegerfernandes@gmail.com",
+          "User-Agent": `${process.env.MELHOR_ENVIO_USER_AGENT}`,
         },
         body: JSON.stringify({
           grant_type: body.grant_type,
-          client_id: "5342",
-          client_secret: "gB9tcnzZxuw61J0k5YJC6ZIxtofHjM32vBYDCuH4",
-          redirect_uri: "https://e480-170-82-203-54.ngrok-free.app/callback",
+          client_id: `${process.env.MELHOR_ENVIO_CLIENT_ID}`,
+          client_secret: `${process.env.MELHOR_ENVIO_CLIENT_SECRET}`,
+          redirect_uri: `${process.env.MELHOR_ENVIO_REDIRECT_URI}`,
           code: body.code,
           refresh_token: body.refresh_token,
         }),

@@ -160,7 +160,7 @@ const Checkout = () => {
       return;
     }
 
-    const pusher = new Pusher("92ce80a4f49372f48d51", {
+    const pusher = new Pusher(`${process.env.PUSHER_KEY}`, {
       cluster: "us2",
     });
 
@@ -232,15 +232,15 @@ const Checkout = () => {
   const shippingData = {
     service: selectedShipping?.id || "",
     from: {
-      name: "Imuno Pump",
-      postal_code: "80420080",
-      document: "06223391501",
-      phone: "79999847482",
-      address: "Rua Emiliano Perneta",
-      complement: "805",
-      number: "659",
-      city: "Curitiba",
-      state_abbr: "PR",
+      name: `${process.env.FROM_NAME}`,
+      postal_code: `${process.env.FROM_POSTAL_CODE}`,
+      document: `${process.env.FROM_DOCUMENT}`,
+      phone: `${process.env.FROM_PHONE}`,
+      address: `${process.env.FROM_ADDRESS}`,
+      complement: `${process.env.FROM_COMPLEMENT}`,
+      number: `${process.env.FROM_NUMBER}`,
+      city: `${process.env.FROM_CITY}`,
+      state_abbr: `${process.env.FROM_STATE}`,
     },
     to: {
       name: `${firstName} ${lastName}`,
