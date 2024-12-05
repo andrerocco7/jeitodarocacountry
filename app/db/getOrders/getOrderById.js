@@ -11,7 +11,7 @@ export const getOrderById = async (orderId, email) => {
     });
 
     if (!user) {
-      return []; // Retorna uma lista vazia se o usuário não existir
+      return [];
     }
 
     const order = await prisma.payment.findFirst({

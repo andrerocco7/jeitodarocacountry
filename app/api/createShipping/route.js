@@ -10,7 +10,7 @@ export async function POST(req) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+        Authorization: `Bearer ${process.env.ME_ACCESS_TOKEN}`,
         "User-Agent": "TESTANDO (gustavopacosa@gmail.com)",
       },
       data: {

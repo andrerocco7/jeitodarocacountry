@@ -9,7 +9,6 @@ import Header2 from "@/components/headers/Header2";
 import Hero from "@/components/homes/home-1/Hero";
 import Marquee from "@/components/homes/home-1/Marquee";
 import CollectionBanner from "@/components/homes/home-electronic/CollectionBanner";
-import Collections from "@/components/homes/home-electronic/Collections";
 
 export const metadata = {
   title: "VKL TECH",
@@ -37,7 +36,6 @@ export default async function Page() {
       <Marquee />
       <Categories categories={categories} />
       <CollectionBanner />
-      {/* <Collections /> */}
       <Products products={products} />
       <Testimonials />
       <Features />
