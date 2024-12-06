@@ -9,10 +9,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 export default function Categories({ categories }) {
   const router = useRouter();
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    router.push("/shop-default");
+  const handleClick = (categoryId) => {
+    router.push(`/shop-default?category=${categoryId}`);
   };
+
   return (
     <section className="flat-spacing-11 pb-0">
       <div className="container">
@@ -41,7 +41,13 @@ export default function Categories({ categories }) {
               {categories.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div className="collection-item-v2 type-small hover-img">
-                    <Link href={`/shop-default`} className="collection-inner">
+                    <div
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleClick(item.id);
+                      }}
+                      className="collection-inner"
+                    >
                       <div className="collection-image img-style radius-10">
                         <Image
                           className="lazyload"
@@ -62,14 +68,17 @@ export default function Categories({ categories }) {
                         <div className="bottom">
                           <button
                             className="tf-btn collection-title hover-icon btn-light rounded-full"
-                            onClick={handleClick}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleClick(item.id);
+                            }}
                           >
                             <span>Comprar agora</span>
                             <i className="icon icon-arrow1-top-left" />
                           </button>
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   </div>
                 </SwiperSlide>
               ))}

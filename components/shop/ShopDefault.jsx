@@ -6,36 +6,25 @@ import ProductGrid from "./ProductGrid";
 import ShopFilter from "./ShopFilter";
 import Sorting from "./Sorting";
 
-export default function ShopDefault() {
+export default function ShopDefault({ filteredProducts }) {
+  // Setando diretamente `filteredProducts` em `products` e `finalSorted`
   const [gridItems, setGridItems] = useState(4);
-  const [finalSorted, setFinalSorted] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState(filteredProducts);
+  const [finalSorted, setFinalSorted] = useState(filteredProducts);
+  const [loading, setLoading] = useState(false); // Sem carregamento, pois os produtos são obrigatórios
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products`
-        );
-        const data = await res.json();
-        setProducts(data);
-        setFinalSorted(data); // Inicialmente, ordenamos os produtos recebidos.
-        setLoading(false);
-      } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
-        setLoading(false);
-      }
-    };
+    // Atualiza os produtos se `filteredProducts` mudar
+    setProducts(filteredProducts);
+    setFinalSorted(filteredProducts);
+  }, [filteredProducts]);
 
-    fetchProducts();
-  }, []);
   return (
     <>
       <section className="flat-spacing-2">
         <div className="container">
           <div className="tf-shop-control grid-3 align-items-center">
-            <div className="tf-control-filter">
+            {/* <div className="tf-control-filter">
               <a
                 href="#filterShop"
                 data-bs-toggle="offcanvas"
@@ -45,7 +34,7 @@ export default function ShopDefault() {
                 <span className="icon icon-filter" />
                 <span className="text">Filter</span>
               </a>
-            </div>
+            </div> */}
             <ul className="tf-control-layout d-flex justify-content-center">
               {layouts.map((layout, index) => (
                 <li
@@ -61,11 +50,11 @@ export default function ShopDefault() {
                 </li>
               ))}
             </ul>
-            <div className="tf-control-sorting d-flex justify-content-end">
+            {/* <div className="tf-control-sorting d-flex justify-content-end">
               <div className="tf-dropdown-sort" data-bs-toggle="dropdown">
                 <Sorting setFinalSorted={setFinalSorted} products={products} />
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="wrapper-control-shop">
             <div className="meta-filter-shop" />

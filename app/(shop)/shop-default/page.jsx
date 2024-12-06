@@ -1,32 +1,57 @@
-import Footer2 from "@/components/footers/Footer2";
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Header2 from "@/components/headers/Header2";
+import Footer2 from "@/components/footers/Footer2";
 import ShopDefault from "@/components/shop/ShopDefault";
 
-export const metadata = {
-  title: "Imuno-Pump",
-  description: "VKLTech",
-};
+export default function Page() {
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-export default async function Page() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products`,
-    {
-      cache: "no-store", // Evita o cache para garantir dados atualizados
-    }
-  );
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
 
-  if (!res.ok) {
-    // Lida com erros na resposta
-    throw new Error("Falha ao buscar os produtos");
-  }
+        // Busca os produtos com base na categoria
+        const res = await fetch(
+          category ? `/api/categories/${category}/products` : `/api/products` // Caso nenhuma categoria seja selecionada
+        );
 
-  const products = await res.json();
+        if (res.ok) {
+          const data = await res.json();
+          setFilteredProducts(data);
+        } else {
+          console.error("Erro ao buscar produtos:", await res.text());
+        }
+      } catch (error) {
+        console.error("Erro de rede ao buscar produtos:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [category]);
 
   return (
     <>
       <Header2 />
 
-      <ShopDefault products={products} />
+      {loading ? (
+        <div className="preload preload-container" id="preloader">
+          <div className="preload-logo">
+            <div className="spinner"></div>
+          </div>
+        </div>
+      ) : (
+        <ShopDefault filteredProducts={filteredProducts} />
+      )}
+
       <Footer2 />
     </>
   );

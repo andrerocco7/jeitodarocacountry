@@ -17,7 +17,7 @@ export default function Pagination() {
           1
         </a>
       </li>{" "}
-      <li className={activePage === 2 ? "active" : ""}>
+      {/* <li className={activePage === 2 ? "active" : ""}>
         <a
           className="pagination-link animate-hover-btn"
           onClick={() => handlePageClick(2)}
@@ -40,15 +40,15 @@ export default function Pagination() {
         >
           4
         </a>
-      </li>
-      <li>
+      </li> */}
+      {/* <li>
         <a
           onClick={() => setActivePage((pre) => (pre !== 4 ? pre + 1 : pre))}
           className="pagination-link animate-hover-btn"
         >
           <span className="icon icon-arrow-right" />
         </a>
-      </li>
+      </li> */}
     </>
   );
 }
