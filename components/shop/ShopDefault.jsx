@@ -7,17 +7,31 @@ import ShopFilter from "./ShopFilter";
 import Sorting from "./Sorting";
 
 export default function ShopDefault({ filteredProducts }) {
-  // Setando diretamente `filteredProducts` em `products` e `finalSorted`
   const [gridItems, setGridItems] = useState(4);
   const [products, setProducts] = useState(filteredProducts);
   const [finalSorted, setFinalSorted] = useState(filteredProducts);
-  const [loading, setLoading] = useState(false); // Sem carregamento, pois os produtos são obrigatórios
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Atualiza os produtos se `filteredProducts` mudar
     setProducts(filteredProducts);
     setFinalSorted(filteredProducts);
   }, [filteredProducts]);
+
+  useEffect(() => {
+    const updateLayoutForMobile = () => {
+      if (window.innerWidth <= 768) {
+        setGridItems("2");
+      }
+    };
+
+    updateLayoutForMobile();
+
+    window.addEventListener("resize", updateLayoutForMobile);
+
+    return () => {
+      window.removeEventListener("resize", updateLayoutForMobile);
+    };
+  }, []);
 
   return (
     <>

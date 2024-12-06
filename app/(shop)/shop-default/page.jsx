@@ -17,7 +17,6 @@ export default function Page() {
       try {
         setLoading(true);
 
-        // Busca os produtos com base na categoria
         const res = await fetch(
           category ? `/api/categories/${category}/products` : `/api/products` // Caso nenhuma categoria seja selecionada
         );
