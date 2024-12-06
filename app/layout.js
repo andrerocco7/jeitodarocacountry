@@ -33,6 +33,8 @@ import RtlToggle from "@/components/common/RtlToggle";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
+export const revalidate = 0;
+
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   useEffect(() => {
