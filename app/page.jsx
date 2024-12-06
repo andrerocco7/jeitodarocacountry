@@ -13,6 +13,8 @@ import CollectionBanner from "@/components/homes/home-electronic/CollectionBanne
 export const metadata = {
   title: "VKL TECH",
 };
+export const revalidate = 0;
+
 export default async function Page() {
   let products = [];
 
