@@ -1,7 +1,10 @@
+import { PrismaClient } from "@prisma/client";
 import { createPayment } from "@/app/db/payment/createPayment";
 import { PaymentMethod, PaymentStatus } from "@prisma/client";
 import { MercadoPagoConfig, Payment } from "mercadopago";
 import { NextResponse } from "next/server";
+
+const prisma = new PrismaClient();
 
 const client = new MercadoPagoConfig({
   accessToken: `${process.env.MERCADO_PAGO_ACCESS_TOKEN}`,
