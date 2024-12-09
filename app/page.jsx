@@ -18,17 +18,13 @@ export default async function Page() {
 
   let categories = [];
 
-  const res2 = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/categories`
-  );
-  categories = await res2.json();
-
   return (
     <>
       <Header10 />
       <Hero />
-      <Categories categories={categories} />
       <Products products={products} />
+      <Categories />
+
       <Footer2 />
     </>
   );

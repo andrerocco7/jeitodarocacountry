@@ -11,12 +11,14 @@ export default function Categories() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch("/api/get-categories");
+      const res = await fetch("/api/categories");
       const json = await res.json();
       setData(json);
     }
     fetchData();
   }, []);
+
+  const limitedData = data.slice(0, 2); // Pega apenas as 2 primeiras categorias
 
   return (
     <section className="flat-spacing-11">
@@ -24,26 +26,26 @@ export default function Categories() {
         <div className="position-relative">
           <div className="flat-title flex-row justify-content-between px-0">
             <span className="title fw-6 wow fadeInUp" data-wow-delay="0s">
-              Popular Categories
+              Categorias Destaque
             </span>
           </div>
           <div className="sw-pagination-wrapper">
             <Swiper
               className="swiper tf-sw-collection"
-              slidesPerView={4}
+              slidesPerView={2}
               spaceBetween={15}
               loop={false}
               autoplay={false}
-              breakpoints={{
-                0: { slidesPerView: 1 },
-                640: { slidesPerView: 3 },
-                768: { slidesPerView: 4, spaceBetween: 30 },
-                1024: { slidesPerView: 4, spaceBetween: 30 },
-              }}
+              // Remova ou ajuste breakpoints se quiser manter responsividade
+              // breakpoints={{
+              //   0: { slidesPerView: 1 },
+              //   640: { slidesPerView: 2 },
+              //   // Ajuste conforme necessário
+              // }}
               modules={[Pagination]}
               pagination={{ clickable: true, el: ".spd174" }}
             >
-              {data.map((category) => (
+              {limitedData.map((category) => (
                 <SwiperSlide key={category.id}>
                   <div className="collection-item-v2 type-small hover-img">
                     <Link
@@ -55,14 +57,13 @@ export default function Categories() {
                           className="lazyload"
                           src={category.imageUrl}
                           alt={category.name}
-                          width={320} // Ajuste conforme necessário
+                          width={320}
                           height={340}
                         />
                       </div>
                       <div className="collection-content">
                         <div className="top">
                           <h5 className="heading fw-5">{category.name}</h5>
-                          <p className="subheading">{category.description}</p>
                         </div>
                         <div className="bottom">
                           <button className="tf-btn collection-title hover-icon btn-light">
