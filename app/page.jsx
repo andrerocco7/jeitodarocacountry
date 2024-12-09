@@ -3,7 +3,6 @@ import Header10 from "@/components/headers/Header10";
 import Hero from "@/components/homes/home-8/Hero";
 import Products from "@/components/homes/home-electronic/Products";
 import Categories from "@/components/homes/home-giftcard/Categories";
-
 export const metadata = {
   title: "VKL TECH",
 };

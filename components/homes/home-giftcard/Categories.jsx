@@ -2,17 +2,29 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function Categories({ categories }) {
+export default function Categories() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("/api/get-categories");
+      const json = await res.json();
+      setData(json);
+    }
+    fetchData();
+  }, []);
+
   return (
     <section className="flat-spacing-11">
       <div className="container">
         <div className="position-relative">
           <div className="flat-title flex-row justify-content-between px-0">
             <span className="title fw-6 wow fadeInUp" data-wow-delay="0s">
-              Destaques
+              Popular Categories
             </span>
           </div>
           <div className="sw-pagination-wrapper">
