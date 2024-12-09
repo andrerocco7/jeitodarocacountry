@@ -1,7 +1,5 @@
 "use client";
-import { collectionItems } from "@/data/categories";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,7 +17,7 @@ export default function Categories({ categories }) {
         <div className="position-relative">
           <div className="flat-title flex-row justify-content-between px-0">
             <span className="title wow fadeInUp" data-wow-delay="0s">
-              Comprar por categoria
+              Destaques
             </span>
           </div>
           <div className="sw-pagination-wrapper">

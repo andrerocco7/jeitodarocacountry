@@ -779,7 +779,7 @@
 .header-white {
   .box-nav-ul .item-link,
   .nav-icon .nav-icon-item {
-    color: var(--white);
+    color: var(--white) imo !important;
   }
   .box-nav-ul .item-link::before {
     background-color: var(--white) !important;

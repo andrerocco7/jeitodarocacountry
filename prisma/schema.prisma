@@ -1,156 +1,161 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
-}
-
-enum ProductStatus {
-    IN_STOCK
-    OUT_STOCK
-}
-
-enum PaymentMethod {
-    PIX
-    CREDITO
-    DEBITO
-}
-
-enum PaymentStatus {
-    APPROVED
-    PENDING
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Product {
-    id          Int           @id @default(autoincrement())
-    img         String
-    title       String
-    price       Float
-    categoryId  Int
-    description String        @db.Text
-    quantity    Int           @default(1)
-    status      ProductStatus
-    category    Category      @relation(fields: [categoryId], references: [id])
-    payments    Payment[]
+  id              Int              @id @default(autoincrement())
+  img             String
+  title           String
+  categoryId      Int
+  description     String           @db.Text
+  quantity        Int              @default(1)
+  status          ProductStatus
+  price           Float
+  payments        Payment[]
+  paymentProducts PaymentProduct[]
+  category        Category         @relation(fields: [categoryId], references: [id])
 
-    paymentProducts PaymentProduct[]
+  @@index([categoryId], map: "Product_categoryId_fkey")
 }
 
 model Category {
-    id          Int       @id @default(autoincrement())
-    name        String
-    description String?
-    imageUrl    String?
-    createdAt   DateTime  @default(now())
-    products    Product[]
-}
-
-enum Role {
-    SUBSCRIBER
-    ADMIN
-}
-
-enum DeviceType {
-    MOBILE
-    DESKTOP
+  id          Int       @id @default(autoincrement())
+  name        String
+  createdAt   DateTime  @default(now())
+  description String?
+  imageUrl    String?
+  products    Product[]
 }
 
 model AccessLog {
-    id          Int        @id @default(autoincrement())
-    userId      Int?
-    ip          String
-    city        String?
-    browser     String
-    deviceType  DeviceType
-    isIphone    Boolean
-    createdAt   DateTime   @default(now())
-    deviceBrand String?
-    deviceModel String?
-    user        User?      @relation(fields: [userId], references: [id])
+  id          Int        @id @default(autoincrement())
+  userId      Int?
+  ip          String
+  city        String?
+  browser     String
+  deviceType  DeviceType
+  isIphone    Boolean
+  createdAt   DateTime   @default(now())
+  deviceBrand String?
+  deviceModel String?
+  user        User?      @relation(fields: [userId], references: [id])
 
-    @@index([userId], map: "AccessLog_userId_fkey")
+  @@index([userId], map: "AccessLog_userId_fkey")
 }
 
 model User {
-    id          Int         @id @default(autoincrement())
-    name        String?
-    email       String      @unique
-    password    String
-    image_url   String?
-    role        Role        @default(SUBSCRIBER)
-    phoneNumber String?
-    AccessLog   AccessLog[]
-    payments    Payment[]
-    createdAt   DateTime    @default(now())
+  id          Int         @id @default(autoincrement())
+  name        String?
+  email       String      @unique
+  password    String
+  createdAt   DateTime    @default(now())
+  image_url   String?
+  phoneNumber String?
+  role        Role        @default(SUBSCRIBER)
+  AccessLog   AccessLog[]
+  payments    Payment[]
 
-    @@index([role], map: "User_role_fkey")
+  @@index([role], map: "User_role_fkey")
 }
 
 model Payment {
-    id              Int           @id @default(autoincrement())
-    userId          Int
-    productId       Int?
-    productQuantity Int?
-    amount          Float
-    gatewayId       String        @unique
-    paymentMethod   PaymentMethod
-    status          PaymentStatus
-    createdAt       DateTime      @default(now())
-    couponCode      String?
+  id                     Int                      @id @default(autoincrement())
+  userId                 Int
+  productId              Int?
+  productQuantity        Int?
+  amount                 Float
+  paymentMethod          PaymentMethod
+  status                 PaymentStatus
+  gatewayId              String                   @unique
+  createdAt              DateTime                 @default(now())
+  couponCode             String?
+  product                Product?                 @relation(fields: [productId], references: [id])
+  user                   User                     @relation(fields: [userId], references: [id])
+  paymentDeliveryAddress PaymentDeliveryAddress[]
+  paymentProducts        PaymentProduct[]
 
-    product Product? @relation(fields: [productId], references: [id])
-    user    User     @relation(fields: [userId], references: [id])
-
-    paymentProducts PaymentProduct[]
-
-    paymentDeliveryAddress PaymentDeliveryAddress[]
+  @@index([productId], map: "Payment_productId_fkey")
+  @@index([userId], map: "Payment_userId_fkey")
 }
 
 model PaymentProduct {
-    id        Int      @id @default(autoincrement())
-    paymentId Int
-    productId Int
-    quantity  Int
-    approved  Boolean?
+  id        Int      @id @default(autoincrement())
+  paymentId Int
+  productId Int
+  quantity  Int
+  approved  Boolean?
+  payment   Payment  @relation(fields: [paymentId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
 
-    product Product @relation(fields: [productId], references: [id])
-    payment Payment @relation(fields: [paymentId], references: [id])
+  @@index([paymentId], map: "PaymentProduct_paymentId_fkey")
+  @@index([productId], map: "PaymentProduct_productId_fkey")
 }
 
 model PaymentDeliveryAddress {
-    id         Int     @id @default(autoincrement())
-    paymentId  Int
-    address    String
-    city       String
-    state      String
-    country    String
-    zip        String
-    phone      String
-    cpf        String
-    name       String
-    serviceId  String
-    complement String?
-    number     String?
+  id         Int     @id @default(autoincrement())
+  paymentId  Int
+  address    String
+  city       String
+  state      String
+  country    String
+  zip        String
+  phone      String
+  cpf        String
+  name       String
+  serviceId  String
+  complement String?
+  number     String?
+  payment    Payment @relation(fields: [paymentId], references: [id])
 
-    payment Payment @relation(fields: [paymentId], references: [id])
+  @@index([paymentId], map: "PaymentDeliveryAddress_paymentId_fkey")
 }
 
 model Coupon {
-    id              String              @id
-    code            String              @unique
-    discount        Float
-    discountType    Coupon_discountType
-    maxUses         Int                 @default(-1)
-    startAmount     Int                 @default(-1)
-    availableAmount Int                 @default(-1)
-    isActive        Boolean             @default(true)
-    createdAt       DateTime            @default(now())
-    updatedAt       DateTime
-    productId       Int?
+  id              String              @id
+  code            String              @unique
+  discount        Float
+  discountType    Coupon_discountType
+  maxUses         Int                 @default(-1)
+  startAmount     Int                 @default(-1)
+  availableAmount Int                 @default(-1)
+  isActive        Boolean             @default(true)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime
+  productId       Int?
 }
+
+enum ProductStatus {
+  IN_STOCK
+  OUT_STOCK
+}
+
+enum PaymentMethod {
+  PIX
+  CREDITO
+  DEBITO
+}
+
+enum PaymentStatus {
+  APPROVED
+  PENDING
+}
+
+enum Role {
+  SUBSCRIBER
+  ADMIN
+}
+
+enum DeviceType {
+  MOBILE
+  DESKTOP
+}
+
 enum Coupon_discountType {
-    PERCENTAGE
-    FIXED
+  PERCENTAGE
+  FIXED
 }

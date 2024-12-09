@@ -1,14 +1,8 @@
-import Testimonials from "@/components/common/Testimonials";
-import Topbar1 from "@/components/headers/Topbar1";
-import Categories from "@/components/homes/home-electronic/Categories";
-import Products from "@/components/homes/home-electronic/Products";
-
-import Features from "@/components/common/Features2";
 import Footer2 from "@/components/footers/Footer2";
-import Header2 from "@/components/headers/Header2";
-import Hero from "@/components/homes/home-1/Hero";
-import Marquee from "@/components/homes/home-1/Marquee";
-import CollectionBanner from "@/components/homes/home-electronic/CollectionBanner";
+import Header10 from "@/components/headers/Header10";
+import Hero from "@/components/homes/home-8/Hero";
+import Products from "@/components/homes/home-electronic/Products";
+import Categories from "@/components/homes/home-giftcard/Categories";
 
 export const metadata = {
   title: "VKL TECH",
@@ -32,15 +26,10 @@ export default async function Page() {
 
   return (
     <>
-      <Topbar1 />
-      <Header2 />
+      <Header10 />
       <Hero />
-      <Marquee />
       <Categories categories={categories} />
-      <CollectionBanner />
       <Products products={products} />
-      <Testimonials />
-      <Features />
       <Footer2 />
     </>
   );

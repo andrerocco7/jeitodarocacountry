@@ -1,19 +1,18 @@
-import React from "react";
-import Nav from "./Nav";
-import Image from "next/image";
-import Link from "next/link";
 import CartLength from "../common/CartLength";
-import WishlistLength from "../common/WishlistLength";
+
 export default function Header10() {
   return (
     <header id="header" className="header-default">
       <div className="px_15 lg-px_40">
         <div className="row wrapper-header align-items-center">
-          <div className="col-md-4 col-3 tf-lg-hidden">
+          {/* Menu Hamburguer e Search Bar */}
+          <div className="col-md-6 col-6 d-flex align-items-center">
+            {/* Menu Hamburguer */}
             <a
               href="#mobileMenu"
               data-bs-toggle="offcanvas"
               aria-controls="offcanvasLeft"
+              className="me-3"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -28,34 +27,26 @@ export default function Header10() {
                 />
               </svg>
             </a>
-          </div>
-          <div className="col-xl-5 tf-md-hidden">
-            <nav className="box-navigation text-center">
-              <ul className="box-nav-ul d-flex align-items-center gap-30">
-                <Nav />
-                <li className="menu-item">
-                  <a
-                    href="https://themeforest.net/item/ecomus-ultimate-html5-template/53417990?s_rank=3"
-                    className="item-link"
-                  >
-                    Buy now
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div className="col-xl-2 col-md-4 col-6 text-center">
-            <Link href={`/`} className="logo-header">
-              <Image
-                alt="logo"
-                className="logo"
-                src="/images/logo/logo.svg"
-                width={136}
-                height={21}
+
+            {/* Search Bar */}
+            <div className="search-bar flex-grow-1">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Pesquisar..."
               />
-            </Link>
+            </div>
           </div>
-          <div className="col-xl-5 col-md-4 col-3">
+
+          {/* Logo Centralizada */}
+          <div className="col-md-4 col-6 text-center">
+            <p className="text-center text-2 text_black-2 mt_5">
+              Jeito da Roça Country
+            </p>
+          </div>
+
+          {/* Ícones à Direita */}
+          <div className="col-md-2 col-12">
             <ul className="nav-icon d-flex justify-content-end align-items-center gap-20">
               <li className="nav-search">
                 <a
@@ -75,19 +66,6 @@ export default function Header10() {
                 >
                   <i className="icon icon-account" />
                 </a>
-              </li>
-              <li className="nav-compare">
-                <Link href={`/compare`} className="nav-icon-item">
-                  <i className="icon icon-compare" />
-                </Link>
-              </li>
-              <li className="nav-wishlist">
-                <Link href={`/wishlist`} className="nav-icon-item">
-                  <i className="icon icon-heart" />
-                  <span className="count-box">
-                    <WishlistLength />
-                  </span>
-                </Link>
               </li>
               <li className="nav-cart">
                 <a

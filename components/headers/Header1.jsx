@@ -1,9 +1,6 @@
-import React from "react";
-import Nav from "./Nav";
-import Image from "next/image";
-import Link from "next/link";
+import SearchModal from "@/components/modals/SearchModal";
 import CartLength from "../common/CartLength";
-import WishlistLength from "../common/WishlistLength";
+import Nav from "./Nav";
 export default function Header1() {
   return (
     <header id="header" className="header-default header-absolute">
@@ -30,15 +27,7 @@ export default function Header1() {
             </a>
           </div>
           <div className="col-xl-3 col-md-4 col-6">
-            <Link href={`/`} className="logo-header">
-              <Image
-                alt="logo"
-                className="logo"
-                src="/images/logo/logo.svg"
-                width="136"
-                height="21"
-              />
-            </Link>
+            <SearchModal />
           </div>
           <div className="col-xl-6 tf-md-hidden">
             <nav className="box-navigation text-center">
@@ -75,14 +64,6 @@ export default function Header1() {
                 >
                   <i className="icon icon-account" />
                 </a>
-              </li>
-              <li className="nav-wishlist">
-                <Link href={`/wishlist`} className="nav-icon-item">
-                  <i className="icon icon-heart" />
-                  <span className="count-box">
-                    <WishlistLength />
-                  </span>
-                </Link>
               </li>
               <li className="nav-cart">
                 <a
