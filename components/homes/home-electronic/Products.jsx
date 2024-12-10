@@ -1,6 +1,5 @@
 "use client";
 import { useContextElement } from "@/context/Context";
-import { products15 } from "@/data/products";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

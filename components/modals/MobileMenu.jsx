@@ -1,9 +1,4 @@
 "use client";
-import React from "react";
-import Link from "next/link";
-import LanguageSelect from "../common/LanguageSelect";
-import CurrencySelect from "../common/CurrencySelect";
-import { navItems } from "@/data/menu";
 import { usePathname } from "next/navigation";
 export default function MobileMenu() {
   const pathname = usePathname();
@@ -45,12 +40,17 @@ export default function MobileMenu() {
           <ul className="nav-ul-mb" id="wrapper-menu-navigation">
             <li className="nav-mb-item">
               <a href="/shop-default" className="mb-menu-link">
-                Home
+                Inicio
               </a>
             </li>
             <li className="nav-mb-item">
               <a href="/shop-default" className="mb-menu-link">
-                Comprar Agora
+                Produtos
+              </a>
+            </li>
+            <li className="nav-mb-item">
+              <a href="/contact-1" className="mb-menu-link">
+                Contato
               </a>
             </li>
           </ul>

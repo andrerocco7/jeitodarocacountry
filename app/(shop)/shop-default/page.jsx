@@ -1,10 +1,10 @@
 "use client";
 
+import Footer2 from "@/components/footers/Footer2";
+import Header10 from "@/components/headers/Header10";
+import ShopDefault from "@/components/shop/ShopDefault";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Header2 from "@/components/headers/Header2";
-import Footer2 from "@/components/footers/Footer2";
-import ShopDefault from "@/components/shop/ShopDefault";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -39,7 +39,7 @@ export default function Page() {
 
   return (
     <>
-      <Header2 />
+      <Header10 />
 
       {loading ? (
         <div className="preload preload-container" id="preloader">

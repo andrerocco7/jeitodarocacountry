@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Pagination from "../common/Pagination";
 import ProductGrid from "./ProductGrid";
 import ShopFilter from "./ShopFilter";
-import Sorting from "./Sorting";
 
 export default function ShopDefault({ filteredProducts }) {
   const [gridItems, setGridItems] = useState(4);
@@ -79,7 +78,7 @@ export default function ShopDefault({ filteredProducts }) {
               products={products}
             />
             {/* pagination */}
-            {finalSorted.length ? (
+            {finalSorted && finalSorted.length ? (
               <ul className="tf-pagination-wrap tf-pagination-list tf-pagination-btn">
                 <Pagination />
               </ul>

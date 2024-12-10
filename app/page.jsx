@@ -4,7 +4,7 @@ import Hero from "@/components/homes/home-8/Hero";
 import Products from "@/components/homes/home-electronic/Products";
 import Categories from "@/components/homes/home-giftcard/Categories";
 export const metadata = {
-  title: "VKL TECH",
+  title: "Jeito da Roça",
 };
 export const revalidate = 0;
 
@@ -24,7 +24,6 @@ export default async function Page() {
       <Hero />
       <Products products={products} />
       <Categories />
-
       <Footer2 />
     </>
   );

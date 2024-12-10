@@ -1,6 +1,37 @@
+"use client";
+import { useState } from "react";
 import CartLength from "../common/CartLength";
 
 export default function Header10() {
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para o termo de pesquisa
+  const [filteredProducts, setFilteredProducts] = useState([]); // Estado para produtos filtrados
+  const [showDropdown, setShowDropdown] = useState(false); // Controla visibilidade do dropdown
+
+  // Função para buscar os produtos do banco
+  const fetchProducts = async (term) => {
+    if (!term) {
+      setFilteredProducts([]);
+      setShowDropdown(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/products?search=${term}`); // Ajuste a URL da API conforme necessário
+      const data = await response.json();
+      setFilteredProducts(data); // Atualiza o estado com os produtos filtrados
+      setShowDropdown(true);
+    } catch (error) {
+      console.error("Erro ao buscar produtos:", error);
+    }
+  };
+
+  // Lida com a entrada do usuário
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value); // Atualiza o estado do termo de pesquisa
+    fetchProducts(value); // Chama a função de busca
+  };
+
   return (
     <header id="header" className="header-default">
       <div className="px_15 lg-px_40">
@@ -29,20 +60,29 @@ export default function Header10() {
             </a>
 
             {/* Search Bar */}
-            <div className="search-bar ">
+            <div className="search-bar">
               <input
                 type="text"
                 className="form-control"
                 placeholder="Pesquisar..."
+                value={searchTerm}
+                onChange={handleInputChange}
               />
+              {/* Dropdown com os resultados */}
+              {showDropdown && (
+                <ul className="dropdown-menu">
+                  {filteredProducts.map((product, index) => (
+                    <li key={index} className="dropdown-item">
+                      {product.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
-
           {/* Logo Centralizada */}
           <div className="col-md-4 col-6 text-center">
-            <h5 className="text-center text-2 text_black-2 mt_5">
-              Jeito da Roça Country
-            </h5>
+            <h5 className="logo_header">Jeito da Roça Country</h5>
           </div>
 
           {/* Ícones à Direita */}
@@ -76,8 +116,6 @@ export default function Header10() {
                   <i className="icon icon-bag" />
                   <span className="count-box">
                     <CartLength />
-
-                    {/* //teste  */}
                   </span>
                 </a>
               </li>
