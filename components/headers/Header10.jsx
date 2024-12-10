@@ -29,7 +29,7 @@ export default function Header10() {
             </a>
 
             {/* Search Bar */}
-            <div className="search-bar flex-grow-1">
+            <div className="search-bar ">
               <input
                 type="text"
                 className="form-control"
@@ -40,9 +40,9 @@ export default function Header10() {
 
           {/* Logo Centralizada */}
           <div className="col-md-4 col-6 text-center">
-            <p className="text-center text-2 text_black-2 mt_5">
+            <h5 className="text-center text-2 text_black-2 mt_5">
               Jeito da Roça Country
-            </p>
+            </h5>
           </div>
 
           {/* Ícones à Direita */}
