@@ -76,6 +76,8 @@ export default function Header10() {
                   <i className="icon icon-bag" />
                   <span className="count-box">
                     <CartLength />
+
+                    {/* //teste  */}
                   </span>
                 </a>
               </li>
