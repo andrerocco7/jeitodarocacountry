@@ -1,11 +1,9 @@
-import React from "react";
-import Nav from "./Nav";
 import Image from "next/image";
 import Link from "next/link";
-import LanguageSelect from "../common/LanguageSelect";
-import CurrencySelect from "../common/CurrencySelect";
 import CartLength from "../common/CartLength";
-import WishlistLength from "../common/WishlistLength";
+import CurrencySelect from "../common/CurrencySelect";
+import LanguageSelect from "../common/LanguageSelect";
+import Nav from "./Nav";
 export default function Header4() {
   return (
     <header id="header" className="header-default header-style-2">
@@ -70,21 +68,19 @@ export default function Header4() {
                     <i className="icon icon-search" />
                   </a>
                 </li>
-                <li className="nav-account">
+                {/* <li className="nav-account">
                   <a
                     href="#login"
                     data-bs-toggle="modal"
                     className="nav-icon-item"
                   >
-                    <i className="icon icon-account" />
+                    <i className="" />
                   </a>
-                </li>
+                </li> */}
                 <li className="nav-wishlist">
                   <Link href={`/wishlist`} className="nav-icon-item">
                     <i className="icon icon-heart" />
-                    <span className="count-box">
-                      <WishlistLength />
-                    </span>
+                    <span className="count-box"></span>
                   </Link>
                 </li>
                 <li className="nav-cart">

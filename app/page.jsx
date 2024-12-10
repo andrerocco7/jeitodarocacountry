@@ -1,8 +1,9 @@
 import Footer2 from "@/components/footers/Footer2";
-import Header10 from "@/components/headers/Header10";
+import Header6 from "@/components/headers/Header6";
 import Hero from "@/components/homes/home-8/Hero";
 import Products from "@/components/homes/home-electronic/Products";
 import Categories from "@/components/homes/home-giftcard/Categories";
+
 export const metadata = {
   title: "Jeito da Roça",
 };
@@ -20,7 +21,7 @@ export default async function Page() {
 
   return (
     <>
-      <Header10 />
+      <Header6 />
       <Hero />
       <Products products={products} />
       <Categories />

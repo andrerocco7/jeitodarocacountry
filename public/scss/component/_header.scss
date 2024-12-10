@@ -172,6 +172,7 @@
   }
   .box-nav-ul {
     gap: 22px;
+    color: #fff !important;
   }
 }
 .header-style-2 {
@@ -223,6 +224,7 @@
     .icon {
       font-size: 18px;
       font-weight: 500;
+      color: var(--white);
     }
     li {
       display: inline-flex;

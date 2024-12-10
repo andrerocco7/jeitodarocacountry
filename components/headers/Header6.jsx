@@ -1,9 +1,9 @@
 "use client";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import CartLength from "../common/CartLength";
 import Nav from "./Nav";
-import { useSession } from "next-auth/react";
 export default function Header6({ isArrow, uppercase = false }) {
   const { data: session } = useSession();
   return (
@@ -41,7 +41,7 @@ export default function Header6({ isArrow, uppercase = false }) {
               <Image
                 alt="logo"
                 className="logo"
-                src="/videos/logoWhite.png"
+                src="/images/brand/jeitodaroca.png"
                 width={200}
                 height={42}
               />
@@ -82,7 +82,7 @@ export default function Header6({ isArrow, uppercase = false }) {
                   className="nav-icon-item align-items-center gap-10"
                 >
                   <i className="icon icon-account" />
-                  <span className="text">Login</span>
+                  <span className="text_header">Login</span>
                 </a>
               )}
               <li className="nav-cart">

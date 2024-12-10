@@ -2736,8 +2736,10 @@
       .cart-lg {
         .icon {
           font-size: 26px;
+          color: #fff;
         }
-        padding-left: 22px;
+        padding-left: 20px;
+        color: #fff;
       }
     }
   }
@@ -2779,6 +2781,9 @@
         }
       }
     }
+  }
+  .text_header {
+    font-size: 12px;
   }
   .list-product-btn {
     &.column-left {
