@@ -1,17 +1,21 @@
 import Link from "next/link";
+
 export default function Hero() {
   return (
     <section className="tf-slideshow slider-effect-fade slider-video position-relative">
       <div className="wrap-slider">
-        <video src="/images/slider/horse.mp4" autoPlay muted playsInline loop />
+        {/* Substituindo o caminho do vídeo pelo link do Firebase */}
+        <video
+          src="https://firebasestorage.googleapis.com/v0/b/e-commerce-fde02.appspot.com/o/videoplayback.mp4?alt=media&token=e91cb1a4-69c0-4ed8-8dde-7dbd86cc820b"
+          autoPlay
+          muted
+          playsInline
+          loop
+        />
         <div className="box-content">
           <div className="container">
-            <p className="fade-item fade-item-1 subheading text-white fw-7">
-              SEU PASSAPORTE PARA O ESTILO COUNTRY
-            </p>
             <h1 className="fade-item fade-item-2 heading text-white">
-              Jeito da Roça Country
-              <br />A loja Oficial do jeito da roça
+              <br />A loja Oficial dus mininu
             </h1>
             <Link
               href={`/shop-collection-sub`}

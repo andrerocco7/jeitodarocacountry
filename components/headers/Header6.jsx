@@ -41,7 +41,7 @@ export default function Header6({ isArrow, uppercase = false }) {
               <Image
                 alt="logo"
                 className="logo"
-                src="/images/brand/jeitodaroca.png"
+                src="/images/brand/usmininu.png"
                 width={200}
                 height={42}
               />
