@@ -2784,6 +2784,7 @@
   }
   .text_header {
     font-size: 12px;
+    display: none !important;
   }
   .list-product-btn {
     &.column-left {
@@ -2942,7 +2943,7 @@
   .wrapper-header {
     .nav-icon {
       gap: 14px;
-      flex-direction: column-reverse;
+      display: flex;
     }
   }
   .footer {

@@ -71,7 +71,7 @@ export default function Footer2({ bgColor = "background-black" }) {
                     </li>
                     <li>
                       <p>
-                        Email: <a href="#">jeitodaRoça@gmail.com</a>
+                        Email: <a href="#">jeitodarocacountry@gmail.com</a>
                       </p>
                     </li>
                     <li>

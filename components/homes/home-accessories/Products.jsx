@@ -15,13 +15,7 @@ export default function Products() {
             Hot Deals
           </span>
           <div className="tf-countdown-v3 wow fadeInUp" data-wow-delay="0s">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={20}
-              height={20}
-              viewBox="0 0 20 20"
-              fill="none"
-            >
+           
               <path
                 d="M13.5631 11.7661L10.7746 9.67465V5.41441C10.7746 4.98605 10.4283 4.6398 9.99996 4.6398C9.5716 4.6398 9.22535 4.98605 9.22535 5.41441V10.062C9.22535 10.306 9.34 10.5361 9.5352 10.6817L12.6336 13.0055C12.7673 13.1062 12.9302 13.1606 13.0975 13.1604C13.3338 13.1604 13.5662 13.0543 13.718 12.8498C13.9752 12.5081 13.9055 12.0225 13.5631 11.7661Z"
                 fill="currentColor"
